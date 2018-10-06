@@ -24,15 +24,12 @@ app.use((req, res, next) => {
 //app.set("json replacer", null);
 //app.set("json spaces", 2);
 
-app.use((req, res) => {
-	res.jsonp({msg: 'Hawdy'});
-});
-
-/*
 app.get('/', (req, res) => {
 	res.jsonp({msg: 'Hawdy'});
 });
-*/
+
+// for certbot
+app.use('/.well-known/acme-challeng', express.static(path.join(__dirname, '.well-known/acme-challeng')))
 
 var server = http.createServer(app);
 

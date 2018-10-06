@@ -29,8 +29,8 @@ app.get('/', (req, res) => {
 	res.jsonp({msg: 'Hawdy'});
 });
 
-// for certbot
-app.use('/.well-known/acme-challeng', express.static(path.join(__dirname, '.well-known/acme-challeng')))
+// for certbot certificate support
+app.use('/.well-known/acme-challenge', express.static(path.join(__dirname, '.well-known/acme-challenge')));
 
 var server = http.createServer(app);
 

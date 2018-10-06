@@ -2,12 +2,16 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 
+//console.log(`env=\n${JSON.stringify(process.env, null, 2)}`);
+
+console.log(`version=${process.env.npm_package_version}`);
+
 var app = express();
 
 var bpj = bodyParser.json({"limit":"999mb"});   // json body middleware
 app.use(bpj);
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 	console.log('**********************************************************************');
 	console.log('incoming request from ' + req.connection.remoteAddress + ":" + req.connection.remotePort + ', url='+ req.url);
 	console.log('method=' + req.method);
@@ -20,31 +24,22 @@ app.use(function(req, res, next) {
 //app.set("json replacer", null);
 //app.set("json spaces", 2);
 
-app.get('/', function(req, res) {
+app.use((req, res) => {
 	res.jsonp({msg: 'Hawdy'});
 });
 
-app.get('/test', function(req, res) {
-	res.jsonp({msg: 'This is a test'});
+/*
+app.get('/', (req, res) => {
+	res.jsonp({msg: 'Hawdy'});
 });
-
-app.post('/test', function(req, res) {
-	res.json(req.body);
-});
-
-app.put('/test_put', function(req, res) {
-	res.json({});
-});
-
-var config = {
-	host: "0.0.0.0"
-	,port: process.env.PORT || 8080
-};
+*/
 
 var server = http.createServer(app);
 
-var port = config.port;
-var host = config.host;
+var host = "0.0.0.0";
+var port = (process.env.PORT || 8080);
+
+console.log(`host=${host}, port=${port}`);
 
 server.listen(port, host, function () {
 	var host = server.address().address;

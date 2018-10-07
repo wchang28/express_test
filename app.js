@@ -1,15 +1,16 @@
-var http = require('http');
-var bodyParser = require('body-parser');
-var express = require('express');
+const http = require('http');
+const https = require('https');
+const bodyParser = require('body-parser');
+const express = require('express');
 const path = require('path');
 
 //console.log(`env=\n${JSON.stringify(process.env, null, 2)}`);
 
 console.log(`version=${process.env.npm_package_version}`);
 
-var app = express();
+let app = express();
 
-var bpj = bodyParser.json({"limit":"999mb"});   // json body middleware
+let bpj = bodyParser.json({"limit":"999mb"});   // json body middleware
 app.use(bpj);
 
 app.use((req, res, next) => {
@@ -32,15 +33,27 @@ app.get('/', (req, res) => {
 // for certbot certificate support
 app.use('/.well-known/acme-challenge', express.static(path.join(__dirname, '.well-known/acme-challenge')));
 
-var server = http.createServer(app);
+let secure = (process.env.SSL_PRIVATE_KEY && process.env.SSL_FULLCHAIN_CERT ? true : false);
 
-var host = "0.0.0.0";
-var port = (process.env.PORT || 8080);
+let server = null;
+
+if (secure) {
+	const options = {
+		key: fs.readFileSync(process.env.SSL_PRIVATE_KEY),
+		cert: fs.readFileSync(process.env.SSL_FULLCHAIN_CERT)
+	};
+	server = https.createServer(options, app);
+} else {
+	server = http.createServer(app);
+}
+
+let host = "0.0.0.0";
+let port = (process.env.PORT || 8080);
 
 console.log(`host=${host}, port=${port}`);
 
 server.listen(port, host, function () {
-	var host = server.address().address;
-	var port = server.address().port;
-	 console.log('app server listening at %s://%s:%s', 'http', host, port);
+	let host = server.address().address;
+	let port = server.address().port;
+	console.log('app server listening at %s://%s:%s', (secure ? 'https': 'http'), host, port);
 });

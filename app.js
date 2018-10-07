@@ -2,6 +2,7 @@ const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');
 const express = require('express');
+const fs = require('fs')
 const path = require('path');
 
 //console.log(`env=\n${JSON.stringify(process.env, null, 2)}`);

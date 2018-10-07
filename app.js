@@ -1,3 +1,7 @@
+// can use the following env. vars. to control the web server
+// 1. PORT
+// 2. SSL_PRIVATE_KEY
+// 3. SSL_FULLCHAIN_CERT
 const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');

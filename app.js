@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 	res.jsonp({msg: 'Hawdy'});
 });
 
-// for certbot certificate support
+// for certbot "webroot" plugin certificate support
 app.use('/.well-known/acme-challenge', express.static(path.join(__dirname, '.well-known/acme-challenge')));
 
 let secure = (process.env.SSL_PRIVATE_KEY && process.env.SSL_FULLCHAIN_CERT ? true : false);

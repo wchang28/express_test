@@ -1,7 +1,8 @@
 // can use the following env. vars. to control the web server
-// 1. PORT
-// 2. SSL_PRIVATE_KEY
-// 3. SSL_FULLCHAIN_CERT
+// 1. HOST (optional)
+// 1. PORT (optional)
+// 2. SSL_PRIVATE_KEY (optional)
+// 3. SSL_FULLCHAIN_CERT (optional)
 const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');
@@ -52,7 +53,7 @@ if (secure) {
 	server = http.createServer(app);
 }
 
-let host = "0.0.0.0";
+let host = (process.env.HOST || "0.0.0.0");
 let port = (process.env.PORT || 8080);
 
 console.log(`host=${host}, port=${port}`);

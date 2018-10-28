@@ -12,7 +12,7 @@ const path = require('path');
 
 //console.log(`env=\n${JSON.stringify(process.env, null, 2)}`);
 
-console.log(`version=${process.env.npm_package_version}`);
+console.log(`${new Date().toISOString()}: version=${process.env.npm_package_version}`);
 
 let app = express();
 
@@ -21,9 +21,8 @@ app.use(bpj);
 
 app.use((req, res, next) => {
 	console.log('**********************************************************************');
-	console.log('incoming request from ' + req.connection.remoteAddress + ":" + req.connection.remotePort + ', url='+ req.url);
-	console.log('method=' + req.method);
-	console.log('headers: ' + JSON.stringify(req.headers));
+	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}:${req.connection.remotePort}, url=${req.url}`);
+	console.log(`${new Date().toISOString()}: headers: ${JSON.stringify(req.headers)}`);
 	console.log('**********************************************************************');
 	console.log('');
 	next();
@@ -61,5 +60,5 @@ console.log(`host=${host}, port=${port}`);
 server.listen(port, host, function () {
 	let host = server.address().address;
 	let port = server.address().port;
-	console.log('app server listening at %s://%s:%s', (secure ? 'https': 'http'), host, port);
+	console.log(`app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
 });

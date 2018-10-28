@@ -21,7 +21,8 @@ app.use(bpj);
 
 app.use((req, res, next) => {
 	console.log('**********************************************************************');
-	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}:${req.connection.remotePort}, url=${req.url}`);
+	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}:${req.connection.remotePort}`);
+	console.log(`${new Date().toISOString()}: url=${req.url}`);
 	console.log(`${new Date().toISOString()}: headers: ${JSON.stringify(req.headers)}`);
 	console.log('**********************************************************************');
 	console.log('');

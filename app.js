@@ -55,10 +55,10 @@ if (secure) {
 let host = (process.env.HOST || "0.0.0.0");
 let port = (process.env.PORT || 8080);
 
-console.log(`host=${host}, port=${port}`);
+console.log(`${new Date().toISOString()}: host=${host}, port=${port}`);
 
 server.listen(port, host, function () {
 	let host = server.address().address;
 	let port = server.address().port;
-	console.log(`app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
+	console.log(`${new Date().toISOString()}: app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
 });

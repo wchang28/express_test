@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
 	res.jsonp({msg: 'Hawdy'});
 });
 
+app.get('/exit', (req, res) => {
+	process.exit(1);
+});
+
 // for certbot "webroot" plugin certificate support
 app.use('/.well-known/acme-challenge', express.static(path.join(__dirname, '.well-known/acme-challenge')));
 

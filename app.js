@@ -10,9 +10,9 @@ const express = require('express');
 const fs = require('fs')
 const path = require('path');
 
-//console.log(`env=\n${JSON.stringify(process.env, null, 2)}`);
+let version = require('./package.json').version;
 
-console.log(`${new Date().toISOString()}: version=${process.env.npm_package_version}`);
+console.log(`${new Date().toISOString()}: version=${version}`);
 
 let app = express();
 
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 //app.set("json spaces", 2);
 
 app.get('/', (req, res) => {
-	res.jsonp({msg: 'Hawdy'});
+	res.jsonp({msg: 'Hawdy', version});
 });
 
 app.get('/exit', (req, res) => {

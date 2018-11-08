@@ -58,7 +58,7 @@ if (secure) {
 let hostname = (process.env.HOSTNAME || "localhost");
 let port = (process.env.PORT || 8080);
 
-console.log(`${new Date().toISOString()}: host=${hostname}, port=${port}`);
+console.log(`${new Date().toISOString()}: hostname=${hostname}, port=${port}`);
 
 server.listen(port, hostname, function () {
 	let host = server.address().address;

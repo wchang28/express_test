@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 //app.set("json spaces", 2);
 
 app.get('/', (req, res) => {
-	res.jsonp({msg: 'Hawdy', version});
+	res.jsonp({now: new Date().toISOString(), msg: 'Hawdy', version});
 });
 
 app.get('/exit', (req, res) => {

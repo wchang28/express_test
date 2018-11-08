@@ -12,7 +12,7 @@ const path = require('path');
 
 let version = require('./package.json').version;
 
-console.log(`${new Date().toISOString()}: version=${version}`);
+console.log(`[${new Date().toISOString()}]: version=${version}`);
 
 let app = express();
 
@@ -21,7 +21,7 @@ app.use(bpj);
 
 app.use((req, res, next) => {
 	console.log('**********************************************************************');
-	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}, url=${req.url}, headers: ${JSON.stringify(req.headers)}`);
+	console.log(`[${new Date().toISOString()}]: incoming ${req.method} request from ${req.connection.remoteAddress}, url=${req.url}, headers: ${JSON.stringify(req.headers)}`);
 	console.log('**********************************************************************');
 	console.log('');
 	next();
@@ -58,10 +58,10 @@ if (secure) {
 let hostname = (process.env.HOSTNAME || "localhost");
 let port = (process.env.PORT || 8080);
 
-console.log(`${new Date().toISOString()}: hostname=${hostname}, port=${port}`);
+console.log(`[${new Date().toISOString()}]: hostname=${hostname}, port=${port}`);
 
 server.listen(port, hostname, function () {
 	let host = server.address().address;
 	let port = server.address().port;
-	console.log(`${new Date().toISOString()}: app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
+	console.log(`[${new Date().toISOString()}]: app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
 });

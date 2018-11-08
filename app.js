@@ -1,5 +1,5 @@
 // can use the following env. vars. to control the web server
-// 1. HOST (optional)
+// 1. HOSTNAME (optional)
 // 1. PORT (optional)
 // 2. SSL_PRIVATE_KEY (optional)
 // 3. SSL_FULLCHAIN_CERT (optional)
@@ -21,9 +21,7 @@ app.use(bpj);
 
 app.use((req, res, next) => {
 	console.log('**********************************************************************');
-	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}:${req.connection.remotePort}`);
-	console.log(`${new Date().toISOString()}: url=${req.url}`);
-	console.log(`${new Date().toISOString()}: headers: ${JSON.stringify(req.headers)}`);
+	console.log(`${new Date().toISOString()}: incoming ${req.method} request from ${req.connection.remoteAddress}, url=${req.url}, headers: ${JSON.stringify(req.headers)}`);
 	console.log('**********************************************************************');
 	console.log('');
 	next();
@@ -57,12 +55,12 @@ if (secure) {
 	server = http.createServer(app);
 }
 
-let host = (process.env.HOST || "0.0.0.0");
+let hostname = (process.env.HOSTNAME || "localhost");
 let port = (process.env.PORT || 8080);
 
-console.log(`${new Date().toISOString()}: host=${host}, port=${port}`);
+console.log(`${new Date().toISOString()}: host=${hostname}, port=${port}`);
 
-server.listen(port, host, function () {
+server.listen(port, hostname, function () {
 	let host = server.address().address;
 	let port = server.address().port;
 	console.log(`${new Date().toISOString()}: app server listening at ${(secure ? 'https': 'http')}://${host}:${port}`);
